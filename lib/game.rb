@@ -9,7 +9,7 @@ class Game
 
 	@@messages = {
 	win: "You win!",
-	lose: "You used all your guesses. You lose.",
+	lose: "You used all your guesses. Sorry, you lose.",
 	too_low: "Your guess was too low.",
 	too_high: "Your guess was too high."
 	}
@@ -17,11 +17,16 @@ class Game
 	#for creating a new instance variable of the Game class
 	def initialize(guesses_allowed, secret_number_range, player_name)
 		@current_guess_count = 0
+		#name from GameMaster
 		@player = Player.new(player_name)
 		@current_guess = nil
+		#from GameMaster
 		@secret_number_range = secret_number_range
+		#secret number is creates in the Game instance so it isn't the same each game
 		@secret_number = SecretNumber.new(@secret_number_range)
+		#from GameMaster
 		@guesses_allowed = guesses_allowed
+		#passed back to GameMaster after game is over
 		@game_result = "unresolved"
 	end
 
@@ -30,6 +35,7 @@ class Game
 		@current_guess_count = @current_guess_count + 1
 	end
 
+	#decrement the guess count whenever player input is invalid before player tries again
 	def decrement_guess_count
 		@current_guess_count = @current_guess_count - 1
 	end
@@ -37,7 +43,7 @@ class Game
 	#logic to check if guess was correct or not and whether player has won or lost
 	def guess_correct?(guess)
 
-		#logic: did the player win? if not, are they out of guesses? if not, was their guess...
+		#logic: did the player win? if not, are they out of guesses? if not, was their guess
 		#...too low? if not, their guess must have been too high
 		if @secret_number == guess
 			puts "Congratulations, #{@player.name}. #{@@messages[:win]} #{guesses_to_win_statement}"
@@ -56,51 +62,6 @@ class Game
 		end
 	end
 
-	# #setups the game parameters before player begins
-	# def setup_game
-	# 	begin
-	# 		#Gets number of guesses from player.
-	# 		puts "///GAME SETUP///"
-	# 		puts "//How many guesses should this game allow each player?"
-	# 		print "      The number of guesses should be: "
-	# 		@guesses_allowed = Integer(gets.chomp)
-			
-	# 		#Gets secret number range from player.
-	# 		lower_limit = 0
-	# 		upper_limit = 0
-
-	# 		while lower_limit >= upper_limit
-	# 			begin
-	# 				puts "What should be the range of numbers the player is guessing within?"
-	# 				print "      The lower limit should be: "
-	# 				lower_limit = Integer(gets.chomp)
-	# 				print "      The upper limit should be: "
-	# 				upper_limit = Integer(gets.chomp)
-					
-	# 				if lower_limit >= upper_limit
-	# 					raise InvalidRange
-	# 				end
-	# 			rescue InvalidRange
-	# 				puts "That was an invalid range. Try again."
-	# 			end
-	# 		end
-
-	# 		#contactinates upper and lower limits into a string
-	# 		string_range = "#{lower_limit}..#{upper_limit}"
-
-	# 		#Uses custom #to_range method of String to convert string into range
-	# 		@secret_number_range = string_range.to_range
-			
-	# 		#passes range to SecretNumber class
-	# 		@secret_number = SecretNumber.new(@secret_number_range)
-	# 	rescue ArgumentError
-	# 		#program will close if user provides blank or non-integer input
-	# 		puts "Sorry, your input was invalid. That usually means you accidentally entered a" 
-	# 		puts "...non-integer or left the field blank. Please restart the program and try again."
-	# 		exit
-	# 	end
-	# end
-
 	#starts a new secret game
 	def start_game
 
@@ -108,10 +69,10 @@ class Game
 
 		print_created_by
 
-		puts "///Welcome to the Secret Number Game///"
+		puts "\n//////////////////////////////////////////////////////////////////////////////////"
+		puts "/////////////////////////////////Secret Number Game/////////////////////////////////"
 
-		#collects player's name and tells them terms of the game
-
+		#tells them terms of the game
 		puts "#{@player.name}, you have #{@guesses_allowed} chances to guess a number between #{@secret_number_range}."
 
 		#runs through the loop for each guess the player is allowed. The guess is passed to the 
@@ -123,6 +84,8 @@ class Game
 					puts "What is your guess?"
 					player_guess = Integer(gets.chomp)
 
+					#when game is over (player won or is out of guesses), breaks out of loop
+					#...and reports result to the GameMaster
 					if guess_correct?(player_guess) == true
 						return @game_result
 						break
@@ -141,6 +104,7 @@ class Game
 		puts "Created by Greg Buckner"
 	end
 
+	#returns string of guesses left with special condition for 1 guess left
 	def guesses_left_statement
 		guesses_left = (@guesses_allowed - @current_guess_count)
 		
@@ -151,6 +115,7 @@ class Game
 		end
 	end
 
+	#reports how many guesses player needed with special condition for 1 guess
 	def guesses_to_win_statement
 		if current_guess_count > 1
 			"You won in #{@current_guess_count} guesses."
