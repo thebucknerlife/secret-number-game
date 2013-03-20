@@ -11,14 +11,17 @@ class GameMaster
 		@player_win_count = 0
 		@player_lose_count = 0
 		@guesses_allowed = 0
-		@secret_number = 0
 		@secret_number_range = (0..0)
 		@player_name = nil
 
+		#method to establish number of guesses, number range, and player name
 		setup_session
 
+		#determines when to stop while loop below
 		@keep_playing == true
 
+		#creates a new game, starts that game, keeps track of result of the game
+		#...prints the score, updates @keep_playing, then quits when player is done
 		until @keep_playing == false 
 			@current_game = Game.new(@guesses_allowed, @secret_number_range, @player_name)
 
@@ -60,14 +63,19 @@ class GameMaster
 			lower_limit = 0
 			upper_limit = 0
 
+			#error checks that range is valid and doesn't continue until valid range
+			#...input by user
+			#while range is invalid
 			while lower_limit >= upper_limit
 				begin
 					puts "What should be the range of numbers you'll guess across?"
 					print "      The lower limit should be: "
+					#check input is an integer (rescued in larger code block below)
 					lower_limit = Integer(gets.chomp)
 					print "      The upper limit should be: "
+					#check input is an integer (rescued in larger code block below)
 					upper_limit = Integer(gets.chomp)
-					
+					#throw error is range is invalid
 					if lower_limit >= upper_limit
 						raise InvalidRange
 					end
@@ -85,7 +93,7 @@ class GameMaster
 			#gets user name
 			puts "What is your name?"
 			@player_name = String(gets.chomp.capitalize)
-		
+		#rescue exeception anytime user inputs a non-integer and quits program
 		rescue ArgumentError
 			#program will close if user provides blank or non-integer input
 			puts "Sorry, your input was invalid. That usually means you accidentally entered a" 
