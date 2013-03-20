@@ -41,7 +41,7 @@ class GameMaster
 			end
 
 			puts "<<<"
-			puts "<<<              ///Current Score///"
+			puts "<<<              /// #{@player_name}'s Score ///"
 			puts "<<<              Wins:  #{player_win_count}"
 			puts "<<<              Loses: #{player_lose_count}"
 			puts "<<<"
