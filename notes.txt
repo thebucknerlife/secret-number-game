@@ -1,0 +1,10 @@
+DONE
+* how do I turn a string into an array? (for #game_setup) (use inumerate module?)
+
+
+
+* how do I kill a times. loop without using exit?
+* does exit quit the program?
+* to play game again, put entire game in a loop? (can't redo setup, however.)
+* move setup into a new class GameMaster? GameMaster captures parameters, sets up new games, etc?
+* turn guess_correct? into game_over?
