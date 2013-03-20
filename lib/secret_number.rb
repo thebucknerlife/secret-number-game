@@ -16,12 +16,14 @@ class SecretNumber
 		@secret_number = generate_secret_number(range.to_a)
 	end
 
-	def get_secret_number
-		@secret_number
-	end
-
+	#to compare guesses with the secret number
 	def <=>(another_number)
 		self.get_secret_number <=> another_number
+	end
+
+	#for comparables method
+	def get_secret_number
+		@secret_number
 	end
 
 end

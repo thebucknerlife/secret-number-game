@@ -154,4 +154,5 @@ require "string"
 require "invalidrange"
 require "game_master"
 
+#only need to create a new GameMaster object to play!
 GameMaster.new
