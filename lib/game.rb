@@ -46,18 +46,18 @@ class Game
 		#logic: did the player win? if not, are they out of guesses? if not, was their guess
 		#...too low? if not, their guess must have been too high
 		if @secret_number == guess
-			puts "Congratulations, #{@player.name}. #{@@messages[:win]} #{guesses_to_win_statement}"
+			puts "<<<         Congratulations, #{@player.name}. #{@@messages[:win]} #{guesses_to_win_statement}"
 			@game_result = "win"
 			true
 		elsif @current_guess_count == @guesses_allowed
-			puts "#{@@messages[:lose]} The secret number was #{@secret_number.secret_number}."
+			puts "<<<         #{@@messages[:lose]} The secret number was #{@secret_number.secret_number}."
 			@game_result = "lose"
 			true
 		elsif @secret_number > guess
-			puts @@messages[:too_low].to_s + " " + guesses_left_statement.to_s
+			puts "<<<         " + @@messages[:too_low].to_s + " " + guesses_left_statement.to_s
 			false		
 		else
-			puts @@messages[:too_high].to_s + " " + guesses_left_statement.to_s
+			puts "<<<         " + @@messages[:too_high].to_s + " " + guesses_left_statement.to_s
 			false
 		end
 	end
@@ -67,11 +67,13 @@ class Game
 
 		@game_over = "false"
 
-		puts "\n////////////////////////////////////////////////////////////////////////////////////"
-		puts "/////////////////////////////////Secret Number Game/////////////////////////////////"
+		puts "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+		puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SECRET NUMBER GAME>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+		puts "<<<"
 
 		#tells them terms of the game
-		puts "\n#{@player.name}, you have #{@guesses_allowed} chances to guess a number between #{@secret_number_range}."
+		puts "<<<         #{@player.name}, you have #{@guesses_allowed} chances to guess a number between #{@secret_number_range}."
+		puts "<<<"
 
 		#runs through the loop for each guess the player is allowed. The guess is passed to the 
 		#...guess_correct? method where all logic is stored.
@@ -79,9 +81,12 @@ class Game
 				begin	
 					increment_guess_count	
 
-					puts "What is your guess?"
+					puts "<<<         What is your guess?"
+					print "<<<         > Enter your guess here: "
 					player_guess = Integer(gets.chomp)
 
+					puts "<<<"
+					
 					#when game is over (player won or is out of guesses), breaks out of loop
 					#...and reports result to the GameMaster
 					if guess_correct?(player_guess) == true
@@ -91,7 +96,7 @@ class Game
 				rescue ArgumentError
 					#decrement @current_guess_counter because invalid guess doesn't count as a guess
 					decrement_guess_count
-					puts "Sorry, that was an invalid guess. Try again."
+					puts "<<<         Sorry, that was an invalid guess. Try again."
 				end
 			end
 	end
