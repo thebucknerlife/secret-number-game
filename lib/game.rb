@@ -67,13 +67,11 @@ class Game
 
 		@game_over = "false"
 
-		print_created_by
-
-		puts "\n//////////////////////////////////////////////////////////////////////////////////"
+		puts "\n////////////////////////////////////////////////////////////////////////////////////"
 		puts "/////////////////////////////////Secret Number Game/////////////////////////////////"
 
 		#tells them terms of the game
-		puts "#{@player.name}, you have #{@guesses_allowed} chances to guess a number between #{@secret_number_range}."
+		puts "\n#{@player.name}, you have #{@guesses_allowed} chances to guess a number between #{@secret_number_range}."
 
 		#runs through the loop for each guess the player is allowed. The guess is passed to the 
 		#...guess_correct? method where all logic is stored.
@@ -99,10 +97,6 @@ class Game
 	end
 
 	### Helper Methods ###
-
-	def print_created_by
-		puts "Created by Greg Buckner"
-	end
 
 	#returns string of guesses left with special condition for 1 guess left
 	def guesses_left_statement

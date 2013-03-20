@@ -14,6 +14,8 @@ class GameMaster
 		@secret_number_range = (0..0)
 		@player_name = nil
 
+		print_created_by
+
 		#method to establish number of guesses, number range, and player name
 		setup_session
 
@@ -54,9 +56,10 @@ class GameMaster
 	def setup_session
 		begin
 			#Gets number of guesses from player.
-			puts "///SESSION SETUP///"
-			puts "//How many guesses do you want for each game?"
-			print "      The number of guesses for each game will be: "
+			puts "\n/////////////////////////////////////////////////////////////////////////////////"
+			puts "//////////////////////////////////GAME SETUP/////////////////////////////////////"
+			puts "//            How many guesses do you want for each game?"
+			print "//            >     The number of guesses for each game will be: "
 			@guesses_allowed = Integer(gets.chomp)
 			
 			#Gets secret number range from player.
@@ -68,11 +71,11 @@ class GameMaster
 			#while range is invalid
 			while lower_limit >= upper_limit
 				begin
-					puts "What should be the range of numbers you'll guess across?"
-					print "      The lower limit should be: "
+					puts "//            What should be the range of numbers you'll guess across?"
+					print "//            >     The lower limit should be: "
 					#check input is an integer (rescued in larger code block below)
 					lower_limit = Integer(gets.chomp)
-					print "      The upper limit should be: "
+					print "//            >     The upper limit should be: "
 					#check input is an integer (rescued in larger code block below)
 					upper_limit = Integer(gets.chomp)
 					#throw error is range is invalid
@@ -91,8 +94,10 @@ class GameMaster
 			@secret_number_range = string_range.to_range
 
 			#gets user name
-			puts "What is your name?"
+			puts "//            What is your name?"
+			print "//            >     My name is: "
 			@player_name = String(gets.chomp.capitalize)
+			puts "////////////////////////////////////////////////////////////////////////////////////"
 		#rescue exeception anytime user inputs a non-integer and quits program
 		rescue ArgumentError
 			#program will close if user provides blank or non-integer input
@@ -101,4 +106,9 @@ class GameMaster
 			exit
 		end
 	end
+
+	def print_created_by
+		puts "Created by Greg Buckner"
+	end
+
 end
